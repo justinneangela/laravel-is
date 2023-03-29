@@ -10,7 +10,11 @@
           <a class="nav-link active" aria-current="page" href="#">Home</a>
         </li>
       </ul>
-      <form action="logout" method="POST">
+      <form class="d-flex me-5" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+      <form action="/logout" method="POST">
         @csrf
         <button class="btn btn-outline-success" type="submit">Logout</button>
       </form>

@@ -1,5 +1,4 @@
 @include('partials.header')
-<x-nav/>
 <form action="/store" method="POST">
     @csrf
   <div class="mb-3">

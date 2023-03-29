@@ -6,12 +6,14 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
     public function register(){
         return view('user.register');
     }
+
     public function store(Request $req){
         $validated=$req->validate([
             "name"=>['required', 'min:4'],
@@ -22,11 +24,13 @@ class UserController extends Controller
         $validated['password']=Hash::make($validated['password']);
         $user=User::create($validated);
 
-        return redirect("/");
+        return redirect("/login");
     }
+
     public function login(){
         return view ('user.login');
     }
+
     public function process(Request $req){
        //dd($req);
         $validated=$req->validate([
@@ -40,11 +44,18 @@ class UserController extends Controller
             return redirect("/login");
         }
     }
+
     public function logout(Request $req){
         auth()->logout();
         $req->session()->invalidate();
         $req->session()->regenerateToken();
 
         return redirect('/login');
+    }
+
+    public function index()
+    {
+        $data = DB::table("users")->get();
+        return view('customer.index', ['customers' => $data]);
     }
 }
